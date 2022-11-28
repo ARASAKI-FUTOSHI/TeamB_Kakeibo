@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>新規登録｜kakeibo_b</title>
+	
+	<style type="text/css">
+		body{
+			min-width:700px;
+		}
+		#main_login form{
+			 text-align: right;
+   			 width: 420px;
+    		 margin: 0 auto 40px ;
+		}
+		#main_login p{
+			margin-bottom: 0px;
+			text-align: right;
+		}
+		#main_login input:not(.touroku){
+			height: 17px;
+   			vertical-align: middle;
+		}
+		#main_login form span{
+			color: red;
+		}
+	</style>
+
+</head>
+
+<body>
+<header>
+    <h1><img src="img/kakeibo_logo.png" class="logo" alt="チームBの家計簿アプリケーション"></h1>
+</header>
+
+<div id="main_login">
+	<h1 id="login">新規登録</h1>
+	<form th:action="@{/completion}" th:method="POST">
+	
+		<p>ユーザー名&nbsp;&nbsp;<input type="text" name="name" ></p>
+		<span  th:text="${errorname}"></span>
+		<span th:if="${#fields.hasErrors('kakeibo.name')}" th:errors="${kakeibo.name}"></span>
+		<p>パスワード&nbsp;&nbsp;<input type="password" name="pass" ></p>
+		<span th:if="${#fields.hasErrors('kakeibo.pass')}" th:errors="${kakeibo.pass}"></span> 
+		<p>パスワード再入力&nbsp;<input type="password" name="karipass"></p>
+		<span  th:text="${error}"></span> 
+		<p><input type="submit" value="ユーザー登録" class="touroku"></p>
+
+     </form>
+</div>
+
+<footer>
+	<p>&copy; 2022WEBプログラマー養成科 teamB</p>
+</footer>
+</body>
+</html>
+

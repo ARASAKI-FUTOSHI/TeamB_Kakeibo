@@ -1,0 +1,305 @@
+@charset "UTF-8";
+
+body{
+	width: 1200px;
+	margin: 30px auto 30px auto;
+}
+
+#main_login,
+#main_logout{
+	border: 1px solid black;
+	text-align: center;
+    padding-bottom: 40px;
+}
+
+nav {
+	font-size: 25px;
+	float: right;
+  width: 85%;
+  height: 80px;
+  background-color: dimgray;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+ul {
+	float: left;
+  display: flex;
+}
+li {
+	display: flex;
+  list-style: none;
+}
+li a {
+	text-align: center;
+  display: block;
+  text-decoration: none;
+  color: white;
+  margin: 0 30px 0 30px;
+}
+.main_nav li{
+	margin: 0 50px 0 50px;
+}
+
+h1{
+	font-size: 250%;
+	margin: 20px auto 5px auto;
+	clear: both;
+	text-align: center;
+}
+th {
+  font-size: 14px;
+}
+footer{
+	text-align: right;
+	clear: both;
+	padding-top: 0;
+}
+
+#main_login a{
+	color: #0000ee;
+	margin: 30px auto 30px auto;
+}
+#main_login p{
+	font-size: 170%;
+	text-align: center;
+}
+#main_login p:last-child{
+	font-size: 170%;
+	text-align: center;
+}
+#login p{
+	text-align: center;
+}
+#login a{
+	color: #0000ee;
+}
+
+.login{
+	cursor: pointer;
+	border: none;
+	background: #999999;
+	color: white;
+	font-size: 120%;
+	width: 350px;
+	height: 50px;
+	/* position: absolute; */
+    right: -30px;
+}
+.logo_enter{
+	float: left;
+}
+
+#logout{
+	background-color: white;
+	text-align: center;
+	width: 200px;
+	height: 35px;
+	position: absolute;
+    right: 50px;
+}
+#logout a{
+	color: black;
+}
+#main_logout{
+	text-align: center;
+}
+
+.logout{
+	padding: 8px;
+	margin: 15px;
+}
+
+
+
+/*---  カレンダー部分ここから ---*/
+
+.calendar-container {
+  width: 800px;
+  margin: 0 auto;
+  border-radius: 5px;
+  background: #f6f5f4;
+  color: #1a1a1a;
+}
+table {
+    outline: 2px solid #aaa;
+    width: 100%;
+}
+th, td {
+	outline: 1px solid #ddd;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+#calendar th {
+  font-weight: normal;
+  font-size: 14px;
+}
+#calendar td {
+  font-weight: bold;
+  padding: 0 60px 45px 0;
+
+}
+.day *:first-child {
+  color: #ff838b;
+}
+.day *:last-child {
+  color: #6fb5ff;
+}
+/*ボタン*/
+#next-prev-button {
+    position: relative;
+}
+#next-prev-button button{
+    cursor: pointer;
+    background: #B78D4A;
+    color: #fff;
+    border: 1px solid #B78D4A;
+    border-radius: 4px;
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+    margin: 1rem 0;
+}
+
+#prev {
+    float: left;
+}
+#next {
+    float: right;
+}
+/*-- ↓色変更↓ --*/
+/*日曜日*/
+td:first-child {
+    color: red;
+}
+/*土曜日*/
+td:last-child {
+    color: blue;
+}
+/*祝日*/
+td:first-child,
+td.holiday{
+    color: red;
+}
+/*前後月の日付*/
+td.disabled {
+    color: #ccc;
+}
+/*本日*/
+td.today {
+    background-color: #eaacb6;
+    color: #fff;
+}
+/*-- ↑色変更↑ --*/
+/*--- カレンダー部分ここまで ---*/
+
+/*  TOPページここから */
+#main_top{
+	width: 700px;
+	float: left;
+}
+#side_top{
+	padding: 20px;
+	width: 30%;
+	height: 700px;
+	float: right;
+	background-color: #98fb98;
+}
+
+/*  TOPページここまで */
+
+/*  設定画面ここから  */
+.category h3{
+	background-color: #98fb98;
+	width: 400px;
+	height: 50px;
+	font-size:36px;
+	color:black;
+	padding: 5px 10px 5px 5px;
+}
+
+.hidari h1{
+	width: 100px;
+	text-align: left;
+  display: flex;
+  color: black;
+}
+
+/*  レシート画像モーダルここから  */
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: .6s;
+  transition: .6s;
+}
+
+.modal.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal_inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 900px;
+  max-width: 900px;
+  padding: 50px;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.modal_inner img {
+  width: 100%;
+}
+
+.modal_inner form {
+  width: 800px;
+}
+
+.modal_close {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.modal_close i {
+  font-size: 20px;
+  color: #333;
+}
+
+.modal_background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.button{
+  font-size: 15px;
+}
+
+.login2{
+	text-align: center;
+	padding-bottom: 40px;
+}
+.gazou{width: 40px; height: 40px;}
+

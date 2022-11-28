@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script>
+	$(function(){
+		 
+		$(".modal_show").on('click', function() {
+			$(this).parent().find(".modal").addClass("is-show");
+		});
+		
+		$(".modal_close,.modal_background").on('click', function() {
+			$(".is-show").removeClass("is-show");
+		});
+	});
+	
+	function deleateSelect(year,month,day,amount_id,name,payment_methods,price,note,image_path){
+		if(confirm(name +
+				"\n " + payment_methods +
+				"\n " + price +
+				"\n " + note +
+				"\n " + image_path +
+				"\n\nを削除しますか？"
+			))
+			location.href = "/delete?amount_id=" + amount_id + '&year=' + year + '&month=' + month + '&day=' + day ;
+	}
+	
+	</script>
+	<link rel="stylesheet" href="css/style.css">
+	<style type="text/css">
+	th,td{border: 1px solid #CCC; padding: 0.7em;
+		text-align: left;}
+	.henshu{width: 100px;}
+	.henshu a{color: black;}
+	.modal_inner {width: 1000px;}
+	.gazou{width: 40px; height: 40px;}
+	</style>
+	<title>日付詳細｜kakeibo_b</title>
+</head>
+
+<body>
+<header>
+    <h1><img src="img/kakeibo_logo.png" class="logo_enter" alt="チームBの家計簿アプリケーション"></h1>
+    <nav>
+        <ul class="main_nav">
+            <li><a href="/">TOP</a></li>
+
+            <li><a href="/setting">設定</a></li>
+           <li id="logout"><a href="/logout">ログアウト</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div id="category_top">
+<!-- 教科書163ページ参考 -->
+	<h1 class="hidari">[[${day}]]日</h1>
+	<h2>現在のデータ</h2> 
+	<!-- 支払い -->
+	<p>支出</p>
+		<table>
+		<tr><th>支払い項目</th><th>支払い方法</th><th>金額</th><th>備考</th><th>画像</th><th>操作</th></tr>
+			<tr th:each="amountview:${amountview_list}">
+				<td th:text="${amountview.name}"></td>
+				<td th:text="${amountview.payment_methods}"></td>
+				<td th:text="${amountview.price}"></td>
+				<td th:text="${amountview.note}"></td>
+				
+				
+					<td>	
+					    <div class="modal">
+				        <div class="modal_inner">
+				            <div id="modal_close" class="modal_close"><i class="fas fa-times"></i></div>
+				            <img th:src="'img/' + ${amountview.image_path}">
+				        </div>
+				        <div id="modal_background" class="modal_background"></div>
+				    </div>
+				    <button th:if="${amountview.image_path} ne NULL" class="button modal_show" ><img class="gazou" th:src="'img/' + ${amountview.image_path}"></button>
+				    </td>
+				    
+				    
+				<td class="henshu">
+					<div class="modal">
+			        	<div class="modal_inner">
+			            	<div id="modal_close" class="modal_close">×</div>
+			            	<form th:method="post" th:action="'/kakeibo_amount_1?year=' + ${year} + '&month=' + ${month} + '&day=' + ${day}" method="post" enctype="multipart/form-data" th:object="${Amount}">
+								<!-- user_idはセッションから自動で挿入 -->
+								<input type="hidden" name="amount_id" th:value="${amountview.id}"/>
+								<input type="hidden" name="user_id" th:value="${session.kakeibo.id}"/>
+								<input type="hidden" name="date_id" th:value="${amountview.date_id}"/>
+								<table>
+									<tr>
+										<th>支払い項目</th><th>支払い方法</th><th>金額</th><th>備考</th><th>画像</th>
+									</tr>
+									<tr>
+										<td>
+											<select  name="category_id">
+												<option th:value="${amountview.category_id}" th:text="${amountview.name}"></option>
+												<option th:if="${amountview.name} ne ${category.name}" th:each="category:${category_list}" th:text="${category.name}" th:value="${category.cid}"></option>
+											</select>
+										</td>
+										<td>
+											<select  name="payment_id">
+												<option th:value="${amountview.payment_id}" th:text="${amountview.payment_methods}"></option>
+												<option th:if="${amountview.payment_methods} ne ${payment.payment_methods}" th:each="payment:${payment_list}" th:text="${payment.payment_methods}" th:value="${payment.pid}"></option>
+											</select>
+											
+										</td>
+										<td><input type="text" name="price" th:value="${amountview.price}"/></td>
+										<td><input type="text" name="note" th:value="${amountview.note}"/></td>
+										<td><input type="file" name="image" value="5"/></td>
+									</tr>
+									<tr><td colspan="5"><input type="submit" value="登録" /></td></tr>
+								</table>
+							</form>
+			        	</div>
+			      		<div id="modal_background" class="modal_background"></div>
+			    	</div>
+					<button class="button modal_show" >編集</button>
+					<button th:onclick="deleateSelect(
+					[[${year}]],
+					[[${month}]],
+					[[${day}]],
+					[[${amountview.id}]],
+					[[${amountview.name}]],
+					[[${amountview.payment_methods}]],
+					[[${amountview.price}]],
+					[[${amountview.note}]],
+					[[${amountview.image_path}]]
+				)">削除</button>	
+					</td>
+			</tr>
+		</table>
+		
+		
+		
+		
+		<!-- 収入 -->
+		<p>収入</p>
+		<table>
+		<tr><th>収入項目</th><th>金額</th><th>操作</th></tr>
+			<tr th:each="incomeview:${incomeview_list2}">
+				<td th:text="${incomeview.income_name}"></td>
+				<td th:text="${incomeview.price}"></td>
+				<td class="henshu">
+					<!-- 編集ボタン押したら出てくるモーダル -->
+				    <div class="modal">
+			        	<div class="modal_inner">
+			            	<div id="modal_close" class="modal_close">×</div>
+			            	<form th:action="'/kakeibo_amount_2?year=' + ${year} + '&month=' + ${month} + '&day=' + ${day}" method="post">
+								<!-- user_idはセッションから自動で挿入 -->
+								<input type="hidden" name="amount_id" th:value="${incomeview.id}"/>
+								<input type="hidden" name="user_id" th:value="${session.kakeibo.id}"/>
+								<input type="hidden" name="date_id" th:value="${incomeview.date_id}"/>
+								<table>
+									<tr>
+										<th>収入項目</th><th>金額</th>
+									</tr>
+									<tr>
+										<td>
+											<select name="income_id">
+												<option th:value="${incomeview.income_id}" th:text="${incomeview.income_name}"></option>
+												<option th:if="${incomeview.income_name} ne ${incomeview2.income}" th:each="incomeview2:${incomeview_list}" th:text="${incomeview2.income}" th:value="${incomeview2.income_id}"></option>
+											</select>	
+										</td>
+										<td><input type="text" name="price" th:value="${incomeview.price}"/></td>
+					
+									</tr>
+									<tr><td colspan="4"><input type="submit" value="登録" /></td></tr>
+								</table>
+							</form>
+			        	</div>
+			      		<div id="modal_background" class="modal_background"></div>
+			    	</div>
+					<button class="button modal_show" >編集</button>
+					
+			    </td>
+				
+			</tr>
+		</table>
+		
+<!-- 教科書165ページ参考 -->	
+	<h2>データの追加</h2>
+	<form th:method="post" th:action="'/kakeibo_amount_1?year=' + ${year} + '&month=' + ${month} + '&day=' + ${day}" enctype="multipart/form-data">
+		<p>支出</p>
+		<table>
+			<tr><th>支払い項目</th><th>支払い方法</th><th>金額</th><th>備考</th><th>画像アップロード</th></tr>
+			<tr>
+				<input type="hidden" name="user_id" th:value="${session.kakeibo.id}">
+				<!-- <input type="hidden" name="date" th:value="${dateSelect}"/> -->
+				<td>
+					<select  name="category_id"><option th:each="category:${category_list}" th:text="${category.name}" th:value="${category.cid}"></option></select>
+					
+				</td>
+		<td><select  name="payment_id">
+					<option th:each="payment:${payment_list}" th:text="${payment.payment_methods}" th:value="${payment.pid}"></option>
+
+		</select></td>
+				<td><input type="text" name="price" /></td>
+				<td><input type="text" name="note" /></td>
+				<td>
+					<input type="file" name="image" ></td>
+			</tr>
+			<tr><td colspan="5"><input type="submit" value="登録" /></td></tr>
+		</table>
+		</form>
+		<p>収入</p>	
+		<form th:method="post" th:action="'/kakeibo_amount_2?year=' + ${year} + '&month=' + ${month} + '&day=' + ${day} + '&type=1'" >	
+			<table>	
+				<tr><th>収入項目</th><th>金額</th></tr>	
+				<tr>	
+					<input type="hidden" name="user_id" th:value="${session.kakeibo.id}" />	
+					<td>	
+					<select name="income_id"><option th:each="incomeview2:${incomeview_list}" th:text="${incomeview2.income}" th:value="${incomeview2.income_id}"></option></select>	
+					</td>	
+					<td><input type="text" name="price" /></td>	
+				</tr>	
+				<tr><td colspan="5"><input type="submit" value="登録" /></td></tr>	
+			</table>	
+		</form>
+		
+	
+	
+</div>
+
+<footer>
+	<p>&copy; 2022WEBプログラマー養成科 teamB</p>
+</footer>
+</body>
+</html>
+

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="UTF-8">
+
+	<link rel="stylesheet" href="css/style.css">
+	
+	<title>各種設定｜kakeibo_b</title>
+</head>
+
+<body>
+<header>
+    <h1><img src="img/kakeibo_logo.png" class="logo_enter" alt="チームBの家計簿アプリケーション"></h1>
+    <nav>
+        <ul class="main_nav">
+            <li><a href="/">TOP</a></li>
+            <li>設定</li>
+            
+            <li id="logout"><a href="/logout">ログアウト</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div id="main_top">
+	<div class="category">
+		<h3><a href="/kakeibo_setting1">銀行口座設定</a></h3>
+		<p>
+			*口座と連携ではありません。あくまで自己管理となります。<br>
+			*支払方法設定に設定した日に、自動的残高を支払費用（カードまた現金）を落とす
+		</p>
+		
+		<h3><a href="/kakeibo_setting2">収入設定</a></h3>
+		<p>
+			*収入項目の設定は必須<br>
+			*入金日と金額を設定する場合は、自動的毎月繰り返す反映されます。<br>
+			*入金額未入力場合は、TOPページのカレンダーに発生ペースで手入力が可能です。
+		</p>
+		
+		<h3><a href="/kakeibo_setting3">支払方法設定</a></h3>
+		<p>
+			*現金とカードの項目を設定可能です。<br>
+			*現金の場合は、開始日は利用日と締切日が同一ため、設定しなくでも可<br>
+			*カードの場合は、引落日に自動的銀行口座自動反映する
+		</p>
+		
+		<h3><a href="/kakeibo_setting4">カテゴリ/予算設定</a></h3>
+		<p>
+			①項目設定<br>
+			*項目は１０文字以内登録ください（空白スペース、符号を含めてます）<br>
+			*同一名前は重複登録はできません。<br>
+			②予算設定<br>
+			*必須入力ではありません。<br>
+			*入力しない場合は、空白となります。<br>
+			*0円で設定可能です。<br>
+			③支払日設定<br>
+			*必須入力ではありません。<br>
+			*設定した場合は、設定内容は自動的Topページのカレンダーで反映される。<br>
+			*毎月固定の出費を設定するをお勧め（例：家賃やネット通信料など）<br>
+			④支払方法設定<br>
+			*必須入力ではありません。
+		</p>
+	</div>
+	
+</div>
+
+<footer>
+	<p>&copy; 2022WEBプログラマー養成科 teamB</p>
+</footer>
+</body>
+</html>

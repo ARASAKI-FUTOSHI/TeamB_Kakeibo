@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+	th,td{border: 1px solid #CCC; padding: 0.7em;
+		text-align: left;width: 100px;}
+	th{background: #B78D4A; }
+	.nonebor{border:none}
+	a{color: black;}
+</style>
+<title>TOP｜kakeibo_comfirm</title>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<img src="img/kakeibo_logo.png" class="logo_enter"
+				alt="チームBの家計簿アプリケーション">
+		</h1>
+		<nav>
+			<ul class="main_nav">
+			<li><a href="/">TOP</a></li>
+            <li><a href="/confirm">確認</a></li>
+			<li><a href="/timetable">予算</a></li>
+			<li><a href="/setting">設定</a></li>
+			<li><a href="#">資産</a></li>
+			<li id="logout"><a href="/logout">ログアウト</a></li>
+			</ul>
+		</nav>
+	</header>
+	<!---- 上部（月　実際収入　実際支出　収支）---->
+	
+	<!---- ここから月/前後移動ボタン ---->
+		<!---- ここからカレンダー ---->
+	
+		<div class="wrapper">
+			<!-- xxxx年xx月を表示 -->
+			<h1 id="header"></h1>
+			<!-- ボタンクリックで月移動 -->
+			<div id="next-prev-button">
+				<button id="prev" onclick="prev()">‹</button>
+				<button id="next" onclick="next()">›</button>
+			</div>
+
+			<div id="calendar"></div>
+		    </div>
+	        </div>
+  	<!---- ここまでカレンダー ---->
+	<table>
+				<th>収入・TOPと連携</th><th>出費・TOPと連携</th><th>収支・計算式出力</th>
+				<tr class="nonebro">
+					<td>200000</td>
+					<td>150000</td>
+					<td >50000（赤字場合は赤字表示）</td>
+				</tr>
+			</table>
+	<!---- 上部（月　実際収入　実際支出　収支） 終了---->
+	
+	<!----（真ん中）1/2 グラフ ---->
+　　　　<h2>（真ん中）①グラフ入れる予定</h2>
+	<!----真ん中　2/2 カテゴリ一覧 ---->
+		<table>
+		
+	<th>カテゴリ</th><th>金額</th><th>予算</th>
+	<tr>
+		<!----出費が無かったカテゴリでも反映するため、categoryよりnameデータを取り出す ---->
+			<tr th:each="category:${category_list}">
+			<td th:text="${category.name}"></td>
+			
+            <tr th:each="index_view:${index_view_list}">
+			<td th:text="${index_view.price}"></td> 
+			<td th:text="${index_view}"></td> 
+			
+			
+	</tr>
+			</table>
+		<!----2/2 カテゴリ一覧終了 ---->	
+		
+	<!----年間一覧 ---->
+	<h2>年間一覧</h2>
+	<table>
+	<!----列はforでループさせる 年間スタート月を設定し、繰り返す１２月分を表示---->
+	<th></th><th>1月</th><th>2月</th><th>3月</th><th>4月</th><th>5月</th><th>6月</th>
+		<th>7月</th><th>8月</th><th>9月</th><th>10月</th><th>11月</th><th>12月</th>
+	<tr>
+		<td>収入1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>収入２</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>収入3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>総収入</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>支出1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+	
+		<td>支出２</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>支出3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td>総支出</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+		</tr>	
+			
+			</table>
+	
+			
+	<footer>
+		<p>&copy; 2022WEBプログラマー養成科 teamB</p>
+	</footer>
+	<script type='text/javascript' src="js/jscpt.js"></script>
+</body>
+</html>
+
